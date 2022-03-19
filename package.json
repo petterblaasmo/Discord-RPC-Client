@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "discord-rpc": "^4.0.1",
+    "discord.js": "^13.6.0",
+    "glob": "^7.2.0",
+    "util": "^0.12.4"
+  },
+  "name": "discord-rpc-client",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "petter#0001",
+  "license": "ISC",
+  "description": "custom discord rpc"
+}
