@@ -4,6 +4,8 @@
     "discord-rpc": "^4.0.1",
     "discord.js": "^13.6.0",
     "glob": "^7.2.0",
+    "node-steam-group": "^1.1.0",
+    "ps-node": "^0.1.6",
     "util": "^0.12.4"
   },
   "name": "discord-rpc-client",
