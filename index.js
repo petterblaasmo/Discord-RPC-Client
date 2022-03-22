@@ -22,10 +22,10 @@ const successLog = () =>
   );
 
 const runRPC = () => {
-  steamgroup.getmembers(group, (err, data) => {
+  steamgroup.getmembers("celeritycsdotcom", (err, data) => {
     let members;
     if (err) members = 0;
-    if (data) members = data;
+    if (data) members = data.length;
 
     client.setActivity({
       details: `Steam Members: ${members}`,
