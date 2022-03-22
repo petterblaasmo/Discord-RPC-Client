@@ -23,6 +23,7 @@ const successLog = () =>
     )} ${chalk.bold.green("Successfully")} updated ${chalk.bold("RPC")} status`
   );
 
+<<<<<<< HEAD
 const runRPC = () => {
   const getMembers = (group, callback) => {
     steamgroup.getmembers(group, (err, data) => {
@@ -50,6 +51,31 @@ const runRPC = () => {
         url: "https://celeritycs.com",
       },
     ],
+=======
+const runRPC = async () => {
+  steamgroup.getmembers("celeritycsdotcom", (err, data) => {
+    let steam;
+    if (err) steam = 0;
+    else steam = data.length;
+    client.setActivity({
+      details: `Steam Members: ${steam}`,
+      state: `Discord Memebers: ${
+        bot.guilds.cache.get(config.guild).memberCount
+      }`,
+      largeImageKey: `https://celeritycs.com/images/background.png`,
+      largeImageText: `www.celeritycs.com`,
+      smallImageKey: `https://celeritycs.com/images/white.png`,
+      smallImageText: `Celerity`,
+      instance: true,
+      // startTimestamp: date,
+      buttons: [
+        {
+          label: "Website",
+          url: "https://celeritycs.com",
+        },
+      ],
+    });
+>>>>>>> 53ba4d949e8cdae15c1a314516898d0c675333be
   });
 };
 
@@ -61,8 +87,13 @@ client.on("ready", () => {
   }, 15000);
 });
 
-client.login({ clientId }).catch((err) => {
-  console.log(errorLog("Login Failed"));
-});
+const login = () => {
+  client.login({ clientId }).catch((err) => {
+    console.log(errorLog("Login Failed"));
+    login();
+  });
+};
+
+login();
 
 bot.login(config.token);
