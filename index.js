@@ -7,8 +7,6 @@ const clientId = "916233710364409858",
   config = require("./config.json"),
   steamgroup = require("node-steam-group");
 
-const date = new Date("March 20, 2022 02:30:00");
-
 const errorLog = (e) =>
   console.log(
     `${chalk.gray(
@@ -23,42 +21,14 @@ const successLog = () =>
     )} ${chalk.bold.green("Successfully")} updated ${chalk.bold("RPC")} status`
   );
 
-<<<<<<< HEAD
 const runRPC = () => {
-  const getMembers = (group, callback) => {
-    steamgroup.getmembers(group, (err, data) => {
-      if (err) return callback(0);
-      callback(data.totalmembers);
-    });
-  };
+  steamgroup.getmembers(group, (err, data) => {
+    let members;
+    if (err) members = 0;
+    if (data) members = data;
 
-  console.log(getMembers("celeritycsdotcom"));
-
-  client.setActivity({
-    details: `Steam Members: ${getMembers("celeritycsdotcom")}`,
-    state: `Discord Memebers: ${
-      bot.guilds.cache.get(config.guild).memberCount
-    }`,
-    largeImageKey: `https://celeritycs.com/images/background.png`,
-    largeImageText: `www.celeritycs.com`,
-    smallImageKey: `https://celeritycs.com/images/white.png`,
-    smallImageText: `Celerity`,
-    instance: true,
-    // startTimestamp: date,
-    buttons: [
-      {
-        label: "Website",
-        url: "https://celeritycs.com",
-      },
-    ],
-=======
-const runRPC = async () => {
-  steamgroup.getmembers("celeritycsdotcom", (err, data) => {
-    let steam;
-    if (err) steam = 0;
-    else steam = data.length;
     client.setActivity({
-      details: `Steam Members: ${steam}`,
+      details: `Steam Members: ${members}`,
       state: `Discord Memebers: ${
         bot.guilds.cache.get(config.guild).memberCount
       }`,
@@ -75,7 +45,6 @@ const runRPC = async () => {
         },
       ],
     });
->>>>>>> 53ba4d949e8cdae15c1a314516898d0c675333be
   });
 };
 
