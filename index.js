@@ -11,28 +11,30 @@ const date = new Date("March 20, 2022 02:30:00");
 
 const errorLog = (e) =>
   console.log(
-    `${chalk.bold(
-      `[${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}] ${chalk.red(
-        "Failed"
-      )} to update RPC! (${e})`
-    )}`
+    `${chalk.gray(
+      `[${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}]`
+    )} ${chalk.bold.red("Failed")} to update ${chalk.bold("RPC")} status (${e})`
   );
 
 const successLog = () =>
   console.log(
-    `${chalk.bold(
-      `[${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}] ${chalk.green(
-        "Successfully"
-      )} updated RPC!`
-    )}`
+    `${chalk.gray(
+      `[${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}]`
+    )} ${chalk.bold.green("Successfully")} updated ${chalk.bold("RPC")} status`
   );
 
 const runRPC = () => {
-  const group = steamgroup.getmembers("celeritycsdotcom", (err, data) => {});
-  console.log(group);
+  const getMembers = (group, callback) => {
+    steamgroup.getmembers(group, (err, data) => {
+      if (err) return callback(0);
+      callback(data.totalmembers);
+    });
+  };
+
+  console.log(getMembers("celeritycsdotcom"));
 
   client.setActivity({
-    details: `Steam Members: ${"hey"}`,
+    details: `Steam Members: ${getMembers("celeritycsdotcom")}`,
     state: `Discord Memebers: ${
       bot.guilds.cache.get(config.guild).memberCount
     }`,
