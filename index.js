@@ -27,27 +27,29 @@ const successLog = () =>
     )}`
   );
 
-const runRPC = () => {
-  const group = steamgroup.getmembers("celeritycsdotcom", (err, data) => {});
-  console.log(group);
-
-  client.setActivity({
-    details: `Steam Members: ${"hey"}`,
-    state: `Discord Memebers: ${
-      bot.guilds.cache.get(config.guild).memberCount
-    }`,
-    largeImageKey: `https://celeritycs.com/images/background.png`,
-    largeImageText: `www.celeritycs.com`,
-    smallImageKey: `https://celeritycs.com/images/white.png`,
-    smallImageText: `Celerity`,
-    instance: true,
-    // startTimestamp: date,
-    buttons: [
-      {
-        label: "Website",
-        url: "https://celeritycs.com",
-      },
-    ],
+const runRPC = async () => {
+  steamgroup.getmembers("celeritycsdotcom", (err, data) => {
+    let steam;
+    if (err) steam = 0;
+    else steam = data.length;
+    client.setActivity({
+      details: `Steam Members: ${steam}`,
+      state: `Discord Memebers: ${
+        bot.guilds.cache.get(config.guild).memberCount
+      }`,
+      largeImageKey: `https://celeritycs.com/images/background.png`,
+      largeImageText: `www.celeritycs.com`,
+      smallImageKey: `https://celeritycs.com/images/white.png`,
+      smallImageText: `Celerity`,
+      instance: true,
+      // startTimestamp: date,
+      buttons: [
+        {
+          label: "Website",
+          url: "https://celeritycs.com",
+        },
+      ],
+    });
   });
 };
 
@@ -59,8 +61,13 @@ client.on("ready", () => {
   }, 15000);
 });
 
-client.login({ clientId }).catch((err) => {
-  console.log(errorLog("Login Failed"));
-});
+const login = () => {
+  client.login({ clientId }).catch((err) => {
+    console.log(errorLog("Login Failed"));
+    login();
+  });
+};
+
+login();
 
 bot.login(config.token);
